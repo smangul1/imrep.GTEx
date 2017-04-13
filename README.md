@@ -1,7 +1,7 @@
 # ImRep-Gtex
 
 
-Here we provide scripts and commands we used in our study "Profiling adaptive immune repertoires across multiple human tissues by RNA Sequencing"  to run existing Ig repertoire assembly tools on both simulated and real data. Preprint  of the study is available at http://biorxiv.org/content/early/2016/11/22/089235 
+Here we provide scripts and commands we used in our study "Profiling immunoglobulin repertoires across multiple human tissues by RNA Sequencing"  to run existing Ig and TCR repertoire assembly tools on both simulated and real data. Preprint  of the study is available at http://biorxiv.org/content/early/2016/11/22/089235 
 
 We have compared ImRep to the following repertoire assembly tools:
 
