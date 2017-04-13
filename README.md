@@ -160,15 +160,16 @@ We have used unfiltered_TCR_seqs files describing the TCR sequences that were as
 
 ## Simulate RNA-Seq data as mixture of transcriptomic and receptor-derived reads
 
-Script to generate IGH and TCRA transcripts is available on github
+### Script to generate IGH and TCRA transcripts is available 
 
-simulateTranscriptsClonotypes.py
-Script to simulate reads from IGH and TCRA transcripts is available on github
+[simulateTranscriptsClonotypes.py]()
+### Script to simulate reads from IGH and TCRA transcripts is available on github
 
-simulateReads.sh.
+[simulateReads.sh](https://github.com/smangul1/ImRep-Gtex/blob/master/simulateReads.sh)
+
 More details on how simulated data is generated are available in the manuscript
 
-Compare CDR3s from RNA-Seq and TCRB-Seq data
+## Compare CDR3s from RNA-Seq and TCRB-Seq data
 
 We have downloaded TCRB-Seq data from here https://clients.adaptivebiotech.com/pub/Liu-2016-NatGenetics. Data was prepared by Li, Bo, et al. "Landscape of tumor-infiltrating T cell repertoire of human cancers." Nature genetics 48.7 (2016): 725-732.
 
