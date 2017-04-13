@@ -115,42 +115,50 @@ imgt_seq_location = /u/home/d/douglasy/tracer-master/resources/imgt_sequences/mo
 igblast_seqtype = TCR
 ```
 
+```
 [kallisto_options]
 base_transcriptome = /u/home/d/douglasy/kallisto_linux-v0.43.0/transcriptomes/Mus_musculus.GRCm38.rel79.cdna.all.fa
 Please note, that Tracer doesn't work with Bowtie2 version 2.3.0. It has to be 2.2.9 or older.
+```
 
-Extract CDR3 assembled by each of the tools
+## Extract CDR3 assembled by each of the tools
 
 We have extracted full-length CDR3 sequences based on the definition of CDR3. CDR3  is defined as the sequence of amino acids between the cysteine ( C ) on the right of the junction and phenylalanine ( F ) (for all TCR chains and immunoglobulin light chains) or tryptophan ( W ) (for IGH) on the left of the junction.
 
-TRUST
+### TRUST
 
 To extract CDR3s from each of the chains we use the following commands:
 
+```
 grep IGH bam.fa | awk -F '+' '$5 != "" && $6 != ""' | cut -f8 -d '+' | cut -f2- -d C | rev | cut -c 4- | rev | awk '{print "C"$0}' | grep "F$" | sort | uniq >trust_IGH.txt
-
 grep TRA bam.fa | awk -F '+' '$5 != "" && $6 != ""' | cut -f8 -d '+' | cut -f2- -d C | rev | cut -c 4- | rev | awk '{print "C"$0}' | grep "F$" | sort | uniq>trust_TCRA.txt
+```
+
 where bam.fa is output of TRUST
 
-MIXCR
+### MIXCR
 
 To extract CDR3s from each of the chains we use the following commands:
 
+```
 grep TRA mixcr.txt | cut -f 33 | sort | uniq  | grep -v "*" >mixcr_TCRA.txt
 grep IGH mixcr.txt | cut -f 33 | sort | uniq  | grep -v "*" >mixcr_IGH.txt
-IMSEQ
+```
+
+### IMSEQ
 
 To extract CDR3s from each of the chains we use the following commands:
 
+```
 grep IGH output-file.tsv | awk -F "\t" '{print $11}' | grep -v "cdr | grep -v "*" | sort | uniq >imseq_igh.txt
 grep TRA output-file.tsv | awk -F "\t" '{print $11}' | grep -v "cdr | grep -v "*" | sort | uniq >imseq_tcra.txt
- 
+```
 
-Tracer
+### Tracer
 
 We have used unfiltered_TCR_seqs files describing the TCR sequences that were assembled prior to filtering by expression. Filtering by expression resulted in only two TCRs beeing assembled, which was not acceptable given 1000 TCRs generated in the simulation experiment.
 
-Simulate RNA-Seq data as mixture of transcriptomic and receptor-derived reads
+## Simulate RNA-Seq data as mixture of transcriptomic and receptor-derived reads
 
 Script to generate IGH and TCRA transcripts is available on github
 
