@@ -160,13 +160,9 @@ We have used unfiltered_TCR_seqs files describing the TCR sequences that were as
 
 ## Simulate RNA-Seq data as mixture of transcriptomic and receptor-derived reads
 
-* Script to generate IGH and TCRA transcripts is available 
+* Script to generate IGH and TCRA transcripts is available : [simulateTranscriptsClonotypes.py](https://github.com/smangul1/ImRep-Gtex/blob/master/simulateTranscriptsClonotypes.py)
 
-[simulateTranscriptsClonotypes.py](https://github.com/smangul1/ImRep-Gtex/blob/master/simulateTranscriptsClonotypes.py)
-
-* Script to simulate reads from IGH and TCRA transcripts is available on github
-
-[simulateReads.sh](https://github.com/smangul1/ImRep-Gtex/blob/master/simulateReads.sh)
+* Script to simulate reads from IGH and TCRA transcripts is available : [simulateReads.sh](https://github.com/smangul1/ImRep-Gtex/blob/master/simulateReads.sh)
 
 More details on how simulated data is generated are available in the manuscript
 
@@ -180,10 +176,10 @@ It contains 3 TCRB-Seq samples from 3 individuals from TCGA study. From TCRB-Seq
 awk '{print $2}' TCGA-CZ-5463.tsv | grep -v Out | sort | uniq | grep -v "amino" | grep "^C" | grep "F$"
 ```
 
-* For sample TCGA-CZ-4862 we have excluded 2083 CDR3s (e.g. CARSLI) and saved 22391 full-length CDR3s
-* For sample TCGA-CZ-4862 we have excluded 3 CDR3s (e.g. CARSLI) and saved 748 full-length CDR3s
-* For sample TCGA-CZ-4862 we have excluded 35 CDR3s (e.g. CARSLI) and saved 5959 full-length CDR3s
+* For sample TCGA-CZ-4862 we have excluded 2083 partial CDR3s (e.g. CARSLI) and saved 22391 full-length CDR3s
+* For sample TCGA-CZ-4862 we have excluded 3 partial CDR3s (e.g. CARSLI) and saved 748 full-length CDR3s
+* For sample TCGA-CZ-4862 we have excluded 35 partial CDR3s (e.g. CARSLI) and saved 5959 full-length CDR3s
 
 Full-length CDR3 assembled by repertoire assembly tools from RNA-Seq reads were extracted as described in Section "Extract CDR3 assembled by each of the tools"
 
-One should note, the number of complete CDR3s fully matching CDR3s obtained by TCRB-Seq in our study  are not fully comparable with the results reported in Li, Bo, et al. 10, where CDR3 sequences are considered to match CDR3s from TCRB-Seq if at least 6 amino acids are matched.
+One should note, the number of complete CDR3s fully matching CDR3s obtained by TCRB-Seq in our study  are not fully comparable with the results reported in Li, Bo, et al. , where CDR3 sequences are considered to match CDR3s from TCRB-Seq if at least 6 amino acids are matched.
