@@ -5,7 +5,7 @@ Here we provide scripts and commands we used in our study "Profiling immunoglobu
 
 We have compared ImRep to the following repertoire assembly tools:
 
-* TRUST (version information is not available. Authors of the software have provided the link to the new version of the software), [https://bitbucket.org/lukeli1987/trustnew](https://bitbucket.org/lukeli1987/trustnew)
+* TRUST (version information is not available. Authors of the software have provided the link to the new version of the software), https://bitbucket.org/lukeli1987/trustnew
 * MIXCR (v 2.2), http://mixcr.readthedocs.io/en/latest/
 * IMSEQ (v 1.1.0), http://www.imtools.org/
 * IGBLAST pipeline (version information is not available), https://github.com/nbstrauli/influenza_vaccination_project
