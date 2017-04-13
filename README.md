@@ -12,9 +12,9 @@ We have compared ImRep to the following repertoire assembly tools:
 * V'DJer (v 0.12), https://github.com/mozack/vdjer
 * TraCeR (v.0.4.0), https://github.com/Teichlab/tracer
 
-### How to run repertoire assembly tools
+## How to run repertoire assembly tools
 
-## TRUST
+### TRUST
 
 We run 2 modes of TRUST :
 
@@ -27,7 +27,7 @@ TRUST.py -f  -a -s
 
 where bam file contains mapped and unmapped reads
 
-## MIXCR
+### MIXCR
 
 We run MIXCR in RNA-Seq mode. Details are here http://mixcr.readthedocs.io/en/latest/rnaseq.html
 
@@ -43,7 +43,7 @@ mixcr exportClones mixcr.clns mixcr.txt
 
 where $1,$2 are fastq files with paired-end RNA-Seq reads. Please note, RNA-Seq reads were simulated as a mixture of transcriptomic reads and reads derived from BCR and TCR transcripts.
 
-## IMSEQ
+### IMSEQ
 
 We run IMSEQ with default parameters for IGH, IGK, IGK, TCRA, and TCRB chains using the following commands:
 
@@ -58,7 +58,7 @@ imseq -ref Homo.Sapiens.IGL.fa -o output-file_IGL.tsv
 
 IMSEQ cannot be applied directly to RNA-Seq reads because it was originally designed for targeted sequencing of B or T cell receptor loci. Thus, to independently assess and compare accuracy with ImReP, we only ran IMSEQ with the receptor-derived reads.  When we run IMSEQ on simulated data, we provide IMSEQ with simulated reads derived from BCR or TCR transcripts as a fastq file. When we run IMSEQ on real RNA-Seq reads,  we provide fastq file with unmapped reads plus reads mapped to BR and TCR loci.
 
-## V'DJer
+### V'DJer
 
 ```
 vdjer --in $bam --ins 175 --chain IGH --ref-dir igh
@@ -70,7 +70,7 @@ where bam file contains mapped and unmapped reads
 
 Unfortunately, we obtained empty output after running V’DJer, and increasing coverage in the simulated data did not solve the problem. We reported the issues here: https://github.com/mozack/vdjer/issues/7. Other users have reported a similar problem and that using sensitive mode doesn't help to solve the problem (https://github.com/mozack/vdjer/issues/7).
 
-## TraCeR
+### TraCeR
 
 ```
 tracer assemble -c tracer.conf -p 4 -s Hsap r1.fastq r2.fastq cellname tracer_output
