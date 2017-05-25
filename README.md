@@ -81,7 +81,6 @@ We have prepared the configuration file for TraCeR according to the software rec
 Configuration file for TraCeR
 
 ```
-[tool_locations]
 #paths to tools used by TraCeR for alignment, quantitation, etc
 bowtie2_path = /u/local/apps/bowtie2/2.2.9/bowtie2
 igblast_path = /u/home/d/douglasy/ncbi-igblast-1.5.0/bin/igblastn
@@ -89,36 +88,29 @@ kallisto_path = /u/home/d/douglasy/kallisto_linux-v0.43.0/kallisto
 trinity_path = /u/home/d/douglasy/trinityrnaseq-Trinity-v2.4.0/Trinity
 dot_path = /path/to/dot
 neato_path = /path/to/neato
- ```
- 
- ```
+
 [bowtie2_options]
-synthetic_genome_index_path = /u/home/d/douglasy/tracer-master/resources/synthetic_genomes/mouse
- ```
- 
- ```
+synthetic_genome_index_path = /u/home/d/douglasy/tracer-master/resources/synthetic_genomes/human
+
 [trinity_options]
 #line below specifies maximum memory for Trinity Jellyfish component. Set it appropriately for your environment.
 max_jellyfish_memory = 1G
 #uncomment the line below to explicitly specify Trinity version. Options are '1' or '2'
 #trinity_version = 2
-#uncomment the line below if you've got a configuration file for Trinity to use a computing grid
+#uncomment the line below if you've got a configuration file for Trinity to use a computing grid 
 #trinity_grid_conf = /path/to/trinity/grid.conf
+
 #uncomment the line below to explicitly specify Trinity version. Options are '1' or '2'
 #trinity_version = 2
-``` 
 
-```
+
 [IgBlast_options]
-igblast_index_location = /u/home/d/douglasy/tracer-master/resources/igblast_dbs/mouse
-imgt_seq_location = /u/home/d/douglasy/tracer-master/resources/imgt_sequences/mouse
+igblast_index_location = /u/home/d/douglasy/tracer-master/resources/igblast_dbs/human
+imgt_seq_location = /u/home/d/douglasy/tracer-master/resources/imgt_sequences/human
 igblast_seqtype = TCR
-```
 
-```
 [kallisto_options]
-base_transcriptome = /u/home/d/douglasy/kallisto_linux-v0.43.0/transcriptomes/Mus_musculus.GRCm38.rel79.cdna.all.fa
-Please note, that Tracer doesn't work with Bowtie2 version 2.3.0. It has to be 2.2.9 or older.
+base_transcriptome = /u/home/d/douglasy/kallisto_linux-v0.43.0/transcriptomes/Homo_sapiens.GRCh38.rel79.cdna.all.fa
 ```
 
 ## Extract CDR3 assembled by each of the tools
