@@ -175,3 +175,9 @@ awk '{print $2}' TCGA-CZ-5463.tsv | grep -v Out | sort | uniq | grep -v "amino" 
 Full-length CDR3 assembled by repertoire assembly tools from RNA-Seq reads were extracted as described in Section "Extract CDR3 assembled by each of the tools"
 
 One should note, the number of complete CDR3s fully matching CDR3s obtained by TCRB-Seq in our study  are not fully comparable with the results reported in Li, Bo, et al. , where CDR3 sequences are considered to match CDR3s from TCRB-Seq if at least 6 amino acids are matched.
+
+## Compare CDR3s from RNA-Seq and BCR-Seq data
+
+
+```
+while read line ; do echo "$PWD/../../sratoolkit.2.8.1-2-ubuntu64/bin/fastq-dump --gzip --split-files -O ${line} ${line}.sra">run_${line}.sh;done<samples.txt ```
