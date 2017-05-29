@@ -197,9 +197,7 @@ RNA integrity number >7
 We extract IGH-CDR3s using the folowwing command:
 
 ```
-grep IGH_ 009-0182.raw | awk '{print $4}' | sort | uniq | grep "^C" | grep "W$" >009-0182_IGH.txt
-
-while read line; do awk '{print $4}' ${line}.raw | grep IGH | sort | uniq |grep "^C" | grep "W$" >${line}_IGH.cdr3;done<samples.txt
+while read line; do awk '{print $2}' ${line}.tsv | grep -v "Out" | grep "^C" | grep "W$" | sort | uniq >${line}_cdr3_aa.txt;done<samples.txt
 ```
 
 We extract IGK-CDR3s using the folowwing command:
