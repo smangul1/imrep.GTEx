@@ -117,6 +117,15 @@ base_transcriptome = /u/home/d/douglasy/kallisto_linux-v0.43.0/transcriptomes/Ho
 
 We have extracted full-length CDR3 sequences based on the definition of CDR3. CDR3  is defined as the sequence of amino acids between the cysteine ( C ) on the right of the junction and phenylalanine ( F ) (for all TCR chains and immunoglobulin light chains) or tryptophan ( W ) (for IGH) on the left of the junction.
 
+
+### ImReP
+
+- IGH
+```
+awk '{if ($2=="IGH") print}' SRR5248347.cdr3 | awk '{print $1}' | sort | uniq >SRR5248347_IGH.cdr3
+awk '{if ($2=="IGK") print}' SRR5248347.cdr3 | awk '{print $1}' | sort | uniq >SRR5248347_IGK.cdr3
+```
+
 ### TRUST
 
 To extract CDR3s from each of the chains we use the following commands:
@@ -134,9 +143,10 @@ To extract CDR3s from each of the chains we use the following commands:
 
 ```
 grep TRA mixcr.txt | grep -v "TRB" | grep -v "TRG" | grep -v "TRD" | cut -f 33 | sort | uniq  | grep -v "*" >mixcr_TCRA.txt
-grep IGH mixcr.txt | grep -v "IGL" | grep -v "IGK" | cut -f 33 | sort | uniq  | grep -v "*" |  grep "^C" | grep "W$" >mixcr_IGH.txt
-
+grep IGH mixcr.txt | grep -v "IGL" | grep -v "IGK" | cut -f 33 | grep -v "*" |  grep "^C" | grep "W$" | sort | uniq >mixcr_IGH.txt 
+grep IGK mixcr.txt | grep -v "IGL" | grep -v "IGH" | cut -f 33 | grep -v "*" |  grep "^C" | grep "F$" | sort | uniq >mixcr_IGK.txt 
 ```
+
 
 ### IMSEQ
 
@@ -187,6 +197,8 @@ RNA integrity number >7
 We extract IGH-CDR3s using the folowwing command:
 
 ```
+grep IGH_ 009-0182.raw | awk '{print $4}' | sort | uniq | grep "^C" | grep "W$" >009-0182_IGH.txt
+
 while read line; do awk '{print $4}' ${line}.raw | grep IGH | sort | uniq |grep "^C" | grep "W$" >${line}_IGH.cdr3;done<samples.txt
 ```
 
