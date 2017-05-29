@@ -120,7 +120,7 @@ We have extracted full-length CDR3 sequences based on the definition of CDR3. CD
 
 ### ImReP
 
-- IGH
+
 ```
 awk '{if ($2=="IGH") print}' SRR5248347.cdr3 | awk '{print $1}' | sort | uniq >SRR5248347_IGH.cdr3
 awk '{if ($2=="IGK") print}' SRR5248347.cdr3 | awk '{print $1}' | sort | uniq >SRR5248347_IGK.cdr3
