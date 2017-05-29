@@ -178,6 +178,28 @@ One should note, the number of complete CDR3s fully matching CDR3s obtained by T
 
 ## Compare CDR3s from RNA-Seq and BCR-Seq data
 
+We have download 18 samples from Ugandan tumors with an 
+
+RNA integrity number >7 
+
+
+We extract IGH-CDR3s using the folowwing command:
+
+```
+while read line; do awk '{print $4}' ${line}.raw | grep IGH | sort | uniq |grep "^C" | grep "W$" >${line}_IGH.cdr3;done<samples.txt
+```
+
+We extract IGK-CDR3s using the folowwing command:
+
+
+```
+while read line; do awk '{print $4}' ${line}.raw | grep IGK | sort | uniq |grep "^C" | grep "F$" >${line}_IGK.cdr3;done<samples.txt
+```
+
+Data was prepared by : Lombardo, Katharine A., et al. "High-throughput sequencing of the B-cell receptor in African Burkitt lymphoma reveals clues to pathogenesis." Blood Advances 1.9 (2017): 535-544.
+
+We calculated immune diversity of the individuals based on BCR-Seq and RNA-Seq data
+
 
 ```
 while read line ; do echo "$PWD/../../sratoolkit.2.8.1-2-ubuntu64/bin/fastq-dump --gzip --split-files -O ${line} ${line}.sra">run_${line}.sh;done<samples.txt ```
