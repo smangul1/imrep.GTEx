@@ -134,7 +134,8 @@ To extract CDR3s from each of the chains we use the following commands:
 
 ```
 grep TRA mixcr.txt | grep -v "TRB" | grep -v "TRG" | grep -v "TRD" | cut -f 33 | sort | uniq  | grep -v "*" >mixcr_TCRA.txt
-grep IGH mixcr.txt | grep -v "IGL" | grep -v "IGK" | cut -f 33 | sort | uniq  | grep -v "*" >mixcr_IGH.txt
+grep IGH mixcr.txt | grep -v "IGL" | grep -v "IGK" | cut -f 33 | sort | uniq  | grep -v "*" |  grep "^C" | grep "W$" >mixcr_IGH.txt
+
 ```
 
 ### IMSEQ
