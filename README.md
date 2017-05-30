@@ -206,6 +206,10 @@ We extract IGK-CDR3s using the folowwing command:
 
 
 ```
+grep IGKV *tsv | awk '{print $2}' | grep -v "Out" | grep "^C" | grep "F$" | grep -v "*" | sort | uniq >all.txt 
+```
+
+```
 while read line; do awk '{print $4}' ${line}.raw | grep IGK | sort | uniq |grep "^C" | grep "F$" >${line}_IGK.cdr3;done<samples.txt
 ```
 
