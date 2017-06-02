@@ -191,35 +191,35 @@ One should note, the number of complete CDR3s fully matching CDR3s obtained by T
 
 ## Compare CDR3s from RNA-Seq and BCR-Seq data
 
-We have download 18 samples from Ugandan tumors with an 
+We perfrom a direct comparison between RNA-Seq and targeted BCR-Seq, by using RNA-Seq and BCR-Seq samples from the same individuals (n=18). Data was prepared by : Lombardo, Katharine A., et al. "High-throughput sequencing of the B-cell receptor in African Burkitt lymphoma reveals clues to pathogenesis." Blood Advances 1.9 (2017): 535-544.
 
-RNA integrity number >7 
+CDR3 clonotypes from BCR-Seq were assembled by immunoSEQ Analyzer (https://www.adaptivebiotech.com/). CDR3 clonotypes from RNA-Seq were assembled by Imrep and MixCR. 
 
-The metadata, including SRA and bio names is available here
+We have downloaded BCR-Seq CDR3s from here (https://clients.adaptivebiotech.com/pub/lombardo-2017-bloodadvances, Analysis 3).
+RNA-Seq data was downoaded from SRA archive, https://www.ncbi.nlm.nih.gov/bioproject/PRJNA374464. 
+
+
+The metadata, including SRA and bio names was downloaded here
 - https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP099346
 
-
-We extract IGH-CDR3s using the folowwing command:
-
-```
-while read line; do awk '{print $2}' ${line}.tsv | grep -v "Out" | grep "^C" | grep "W$" | sort | uniq >${line}_cdr3_aa.txt;done<samples.txt
-```
-
-We extract IGK-CDR3s using the folowwing command:
-
+SRA files were converged to fastq file (_1.fastq.gz and _2.fastq.gz) using the following command:
 
 ```
-grep IGKV *tsv | awk '{print $2}' | grep -v "Out" | grep "^C" | grep "F$" | grep -v "*" | sort | uniq >all.txt 
+while read line ; do echo "$PWD/../../sratoolkit.2.8.1-2-ubuntu64/bin/fastq-dump --gzip --split-files -O ${line} ${line}.sra">run_${line}.sh;done<samples.txt 
 ```
 
+
+We extract IGH-CDR3s from immunoSEQ Analyzer files using the folowwing command:
+
 ```
-while read line; do awk '{print $4}' ${line}.raw | grep IGK | sort | uniq |grep "^C" | grep "F$" >${line}_IGK.cdr3;done<samples.txt
+grep IGH_ 009-0103.raw >009-0103_IGH.txt
+And across all samples:
+while read line; do grep IGH_ ${line}.raw >${line}_IGH.txt;done<samples_18.txt
 ```
 
-Data was prepared by : Lombardo, Katharine A., et al. "High-throughput sequencing of the B-cell receptor in African Burkitt lymphoma reveals clues to pathogenesis." Blood Advances 1.9 (2017): 535-544.
+
 
 We calculated immune diversity of the individuals based on BCR-Seq and RNA-Seq data
 
 
-```
-while read line ; do echo "$PWD/../../sratoolkit.2.8.1-2-ubuntu64/bin/fastq-dump --gzip --split-files -O ${line} ${line}.sra">run_${line}.sh;done<samples.txt ```
+
