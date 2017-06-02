@@ -195,6 +195,9 @@ We have download 18 samples from Ugandan tumors with an
 
 RNA integrity number >7 
 
+The metadata, including SRA and bio names is available here
+- https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP099346
+
 
 We extract IGH-CDR3s using the folowwing command:
 
