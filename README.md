@@ -215,11 +215,23 @@ We extract IGH-CDR3s from immunoSEQ Analyzer files using the folowwing command:
 grep IGH_ 009-0103.raw >009-0103_IGH.txt
 And across all samples:
 while read line; do grep IGH_ ${line}.raw >${line}_IGH.txt;done<samples_18.txt
+while read line;do awk '{if ($2=="IGH") print}' ${line}.cdr3>${line}_IGH.cdr3;done<samples.txt
 ```
 
 
 
 We calculated immune diversity of the individuals based on BCR-Seq and RNA-Seq data
+
+
+### Imrep
+
+To rename the files from SRA to real names
+```
+while read line; do new=$(echo $line| awk '{print $2}');old=$(echo $line| awk '{print $1}'); mv ${old}.cdr3 ${new}.cdr3;done<../sample_SRA_bio_new.txt 
+ls *cdr3 | awk -F ".cdr3" '{print $1}'>samples.txt
+for f in *_IGH.cdr3;do n=$(awk '{s+=$3} END {print s}' $f); echo $f,$n;done
+
+```
 
 
 
