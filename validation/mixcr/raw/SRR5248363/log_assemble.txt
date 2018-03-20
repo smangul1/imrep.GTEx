@@ -1,0 +1,56 @@
+Analysis Date: Mon May 29 14:16:46 PDT 2017
+Input file(s): alignments_rescued_2.vdjca
+Output file: mixcr.clns
+Version: 2.2-SNAPSHOT; built=Fri Feb 24 21:14:18 PST 2017; rev=7c19118; lib=repseqio.v1.2
+Analysis time: 1.97s
+Command line arguments: assemble -f -r log_assemble.txt alignments_rescued_2.vdjca mixcr.clns
+Final clonotype count: 100
+Average number of reads per clonotype: 48.21
+Reads used in clonotypes, percent of total: 4821 (0.01%)
+Reads used in clonotypes before clustering, percent of total: 5160 (0.01%)
+Number of reads used as a core, percent of used: 5098 (98.8%)
+Mapped low quality reads, percent of used: 62 (1.2%)
+Reads clustered in PCR error correction, percent of used: 339 (6.57%)
+Reads pre-clustered due to the similar VJC-lists, percent of used: 0 (0%)
+Reads dropped due to the lack of a clone sequence: 12 (0%)
+Reads dropped due to low quality: 2 (0%)
+Reads dropped due to failed mapping: 37 (0%)
+Reads dropped with low quality clones: 0 (0%)
+Clonotypes eliminated by PCR error correction: 46
+Clonotypes dropped as low quality: 0
+Clonotypes pre-clustered due to the similar VJC-lists: 0
+[IGL] chains: 18 (18%)
+[TRG] chains: 1 (1%)
+[IGH] chains: 3 (3%)
+[IGK] chains: 62 (62%)
+[TRB] chains: 11 (11%)
+[TRA] chains: 5 (5%)
+======================================
+Analysis Date: Mon May 29 15:04:48 PDT 2017
+Input file(s): alignments_rescued_2.vdjca
+Output file: mixcr.clns
+Version: 2.2-SNAPSHOT; built=Fri Feb 24 21:14:18 PST 2017; rev=7c19118; lib=repseqio.v1.2
+Analysis time: 2.08s
+Command line arguments: assemble -f -r log_assemble.txt alignments_rescued_2.vdjca mixcr.clns
+Final clonotype count: 100
+Average number of reads per clonotype: 48.21
+Reads used in clonotypes, percent of total: 4821 (0.01%)
+Reads used in clonotypes before clustering, percent of total: 5160 (0.01%)
+Number of reads used as a core, percent of used: 5098 (98.8%)
+Mapped low quality reads, percent of used: 62 (1.2%)
+Reads clustered in PCR error correction, percent of used: 339 (6.57%)
+Reads pre-clustered due to the similar VJC-lists, percent of used: 0 (0%)
+Reads dropped due to the lack of a clone sequence: 12 (0%)
+Reads dropped due to low quality: 2 (0%)
+Reads dropped due to failed mapping: 37 (0%)
+Reads dropped with low quality clones: 0 (0%)
+Clonotypes eliminated by PCR error correction: 46
+Clonotypes dropped as low quality: 0
+Clonotypes pre-clustered due to the similar VJC-lists: 0
+[IGL] chains: 18 (18%)
+[TRG] chains: 1 (1%)
+[IGH] chains: 3 (3%)
+[IGK] chains: 62 (62%)
+[TRB] chains: 11 (11%)
+[TRA] chains: 5 (5%)
+======================================
