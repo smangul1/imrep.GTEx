@@ -25,6 +25,7 @@ args = ap.parse_args()
 #ESO_1_sorted_inf        82.338987       81220   CASSYVGNTGELFF  CTGCTGTCGGCTGCTCCCTCCCAGACATCTGTGTACTTCTGTGCCAGCAGTTACGTCGGGAACACCGGGGAGCTGTTTTTTGGAGAA TCRBV06-05*01   TCRBD02-01      TCRBJ02-02*01
 
 set_cdr3=set()
+set_VJ=set()
 dict={}
 
 #get all CDR3s
@@ -33,8 +34,15 @@ reader=csv.reader(file,delimiter="\t")
 next(reader,None)
 for line in reader:
     cdr3=line[3]
-    if cdr3[0] == "C" and cdr3[len(cdr3) - 1] == "F":
+    V=line[5].split("-")[0]
+    J = line[7].split("-")[0]
+
+    if cdr3[0] == "C" and cdr3[len(cdr3) - 1] == "W":
         set_cdr3.add(cdr3)
+    if V!="unresolved" and  J!="unresolved":
+        set_VJ.add(V+J)
+        print(line, V, J)
+
 file.close()
 
 
@@ -43,25 +51,28 @@ for c in set_cdr3:
 
 #get number of reads
 
+sum=0.0
+
 file=open(args.input)
 reader=csv.reader(file,delimiter="\t")
 next(reader,None)
 for line in reader:
     nReads=int(line[2])
     cdr3=line[3]
-    if cdr3[0]=="C" and cdr3[len(cdr3)-1]=="F":
+    if cdr3[0]=="C" and cdr3[len(cdr3)-1]=="W":
         dict[cdr3]+=nReads
+        sum+=nReads
     else:
         print (cdr3)
 
 file.close()
 
 fileOut=open(args.out_prefix+".cdr3.csv","w")
-fileOut.write("CDR3,nReads")
+fileOut.write("CDR3,nReads,freq")
 fileOut.write("\n")
 
 for key, value in dict.items():
-    fileOut.write(key+","+str(value))
+    fileOut.write(key+","+str(value)+","+str(value/sum))
     fileOut.write("\n")
 
 
