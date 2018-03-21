@@ -186,9 +186,9 @@ with open(args.file3) as csvFile:
 
 ########################################################################################
 
-print "bcr-imrep",len(clonotypes_bcr),len(clonotypes_imrep), len(clonotypes_bcr.intersection(clonotypes_imrep))
-print "bcr-mixcr",len(clonotypes_bcr),len(clonotypes_mixcr), len(clonotypes_bcr.intersection(clonotypes_mixcr))
-print "mixcr-imrep",len(clonotypes_mixcr),len(clonotypes_imrep), len(clonotypes_mixcr.intersection(clonotypes_imrep))
+print ("bcr-imrep",len(clonotypes_bcr),len(clonotypes_imrep), len(clonotypes_bcr.intersection(clonotypes_imrep)))
+print ("bcr-mixcr",len(clonotypes_bcr),len(clonotypes_mixcr), len(clonotypes_bcr.intersection(clonotypes_mixcr)))
+print ("mixcr-imrep",len(clonotypes_mixcr),len(clonotypes_imrep), len(clonotypes_mixcr.intersection(clonotypes_imrep)))
 
 
 
@@ -197,7 +197,9 @@ out_bcrseq=open("bcrseqq.cdr3","w")
 out_bcrseq.write("CDR3,nReads,FREQ\n")
 
 for key,value in dict_counts_bcrseq.items():
-    out_bcrseq.write(key+","+str(value))
+    s=sum(dict_counts_bcrseq.values())
+    freq=value/float(s)
+    out_bcrseq.write(key+","+str(value)+","+str(freq))
     out_bcrseq.write("\n")
 
 out_bcrseq.close()
@@ -207,7 +209,9 @@ out_imrep=open("imrep.cdr3","w")
 out_imrep.write("CDR3,nReads,FREQ\n")
 
 for key,value in dict_counts_imrep.items():
-    out_imrep.write(key+","+str(value))
+    s=sum(dict_counts_imrep.values())
+    freq=value/float(s)
+    out_imrep.write(key+","+str(value)+","+str(freq))
     out_imrep.write("\n")
 
 out_imrep.close()
@@ -215,8 +219,10 @@ out_imrep.close()
 out_mixcr=open("mixcr.cdr3","w")
 out_mixcr.write("CDR3,nReads,FREQ\n")
 
-for key,value in dict_counts_imrep.items():
-    out_mixcr.write(key+","+str(value))
+for key,value in dict_counts_mixcr.items():
+    s=sum(dict_counts_mixcr.values())
+    freq=value/float(s)
+    out_mixcr.write(key+","+str(value)+","+str(freq))
     out_mixcr.write("\n")
 
 out_mixcr.close()

@@ -1,0 +1,2 @@
+sample,n_tcrseq,n_rnaseq,n_common,ratio,max_missed_clonotype,prc_captured_by_rnaseq
+test,525,182,39,0.21428571428571427,0.04794520547945205,0.6901008012406293
