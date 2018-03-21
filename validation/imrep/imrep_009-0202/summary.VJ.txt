@@ -1,0 +1,2 @@
+SAMPLE,nIGH,nIGK,nIGL,nTCRA,nTCRB,nTCRD,nTCRG, loadIGH,loadIGK,loadIGL,loadTCRA,loadTCRB,loadTCRD,loadTCRG,alphaIGH,alphaIGK,alphaIGL,alphaTCRA,alphaTCRB,alphaTCRD,alphaTCRG
+imrep_009-0202,0,0,0,18,0,0,0,0,0,0,1025,0,0,0,0,0,0,0.442213124038,0,0,0

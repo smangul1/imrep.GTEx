@@ -1,0 +1,22 @@
+Analysis Date: Sun May 28 17:24:16 PDT 2017
+Input file(s): /u/home/s/serghei/scratch/mixcr_bcrseq/data/SRR5248356_1.fastq.gz,/u/home/s/serghei/scratch/mixcr_bcrseq/data/SRR5248356_2.fastq.gz
+Output file: alignments.vdjca
+Version: 2.2-SNAPSHOT; built=Fri Feb 24 21:14:18 PST 2017; rev=7c19118; lib=repseqio.v1.2
+Analysis time: 75.74m
+Command line arguments: align -p rna-seq -r log_align.txt /u/home/s/serghei/scratch/mixcr_bcrseq/data/SRR5248356_1.fastq.gz /u/home/s/serghei/scratch/mixcr_bcrseq/data/SRR5248356_2.fastq.gz alignments.vdjca
+Total sequencing reads: 72325327
+Successfully aligned reads: 8740 (0.01%)
+Alignment failed, no hits (not TCR/IG?): 71694218 (99.13%)
+Alignment failed because of absence of V hits: 300962 (0.42%)
+Alignment failed because of absence of J hits: 296606 (0.41%)
+Alignment failed because of low total score: 24801 (0.03%)
+Overlapped: 415013 (0.57%)
+Overlapped and aligned: 34 (0%)
+Overlapped and not aligned: 414979 (0.57%)
+[IGL] chains: 159 (1.86%)
+[TRG] chains: 5 (0.06%)
+[IGH] chains: 2 (0.02%)
+[IGK] chains: 8339 (97.57%)
+[TRB] chains: 17 (0.2%)
+[TRA] chains: 25 (0.29%)
+======================================
