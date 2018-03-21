@@ -18,31 +18,7 @@ def sdi(data):
     
     return -sum(p(n, N) for n in data.values() if n is not 0)
 
-def compare_cdr3(clonotypes1,clonotypes2):
 
-    dList=[]
-    
-    cdr3List=[]
-
-    for i in clonotypes1:
-        t=set()
-        t.clear()
-        for j in clonotypes2:
-            d=Levenshtein.ratio(i,j)
-
-        
-            if d>=0.9:
-                t.add(d)
-        if len(t)>0:
-            dList.append(max(t))
-            cdr3List.append(i)
-
-    if len(dList)!=0:
-        av=sum(dList)/len(dList)
-    else:
-        av=0
-
-    return (len(dList), av,cdr3List)
 
 
 
@@ -64,8 +40,14 @@ args = ap.parse_args()
 
 
 dict_counts_bcrseq={}
-dict_counts_imrep={}
+dict_counts_bcrseq_vdj={}
 
+dict_counts_imrep={}
+dict_counts_imrep_vdj={}
+
+
+dict_counts_mixcr={}
+dict_counts_mixcr_vdj={}
 
 
 clonotypes_bcr=set()
@@ -85,50 +67,83 @@ with open(args.file1) as csvFile:
     readCSV=csv.reader(csvFile,delimiter="\t")
     next(readCSV, None)
     for line in readCSV:
-        if line[2]!="Out" and '*' not in line[1]:
-        #clonotypes1.append(line[0])
-            clonotypes_bcr.add(line[1])
-            
-            dict_counts_bcrseq[line[1]]=0.0
-            dict[line[1]]=0.0
-            #print line[9],line[12],line[15], line
-            if line[9]!="" and line[15]!="":
-                V=line[9].replace('0','')
-                J=line[15].replace('0','')
+
+        cdr3=line[3]
+        count=int(line[2])
+
+
+        #if line[2]!="Out" and '*' not in line[1] and :
+        if cdr3[0]=="C" and cdr3[len(cdr3)-1]=="W":
+            clonotypes_bcr.add(cdr3)
+            dict_counts_bcrseq[cdr3]=0
+            if line[5]!="unresolved" and line[7]!="unresolved":
+                V=line[5].replace('0','').split("-")[0]
+                J=line[7].replace('0','').split("-")[0]
                 vdj_bcr.add(V+"-"+J)
-            
+                dict_counts_bcrseq_vdj[V+"-"+J]=0
 
 
-
-# freq is for nucl
 with open(args.file1) as csvFile:
     readCSV=csv.reader(csvFile,delimiter="\t")
     next(readCSV, None)
     for line in readCSV:
-        if line[2]!="Out" and '*' not in line[1]:
-            #clonotypes1.append(line[0])
-            dict[line[1]]+=float(line[7])
-            dict_counts_bcrseq[line[1]]+=float(line[7])
+
+        cdr3=line[3]
+        count=int(line[2])
+
+        if cdr3[0] == "C" and cdr3[len(cdr3) - 1] == "W":
+            dict_counts_bcrseq[cdr3]+=count
+            if line[5]!="unresolved" and line[7]!="unresolved":
+                V=line[5].replace('0','').split("-")[0]
+                J=line[7].replace('0','').split("-")[0]
+
+                dict_counts_bcrseq_vdj[V+"-"+J]+=count
 
 
-#imrep
+
+
+
+
+
+
+
+#imrep -----------------------------------------------------------------------------
+#CGAGTPPASSCPSLGRGW      IGH     2       IGHV3   NA      IGHJ2
+
 sumReadsImrep=0
 with open(args.file2) as csvFile:
-    readCSV=csv.reader(csvFile,delimiter="\t")
+    readCSV=csv.reader(csvFile)
     next(readCSV, None)
     for line in readCSV:
-    #if int(line[2])>2:
-        clonotypes_imrep.add(line[0])
-        dict_counts_imrep[line[0]]=int(line[2])
-        sumReadsImrep+=int(line[2])
-        if line[3].count(",")==0 and line[5].count(",")==0:
-            
-            
-            V=line[3].split("/")[0]
-            J=line[5]
-            vdj_imrep.add(V+"-"+J)
+        if line[1]=="IGH":
+            cdr3=line[0]
+            count=int(line[2])
+
+            clonotypes_imrep.add(cdr3)
+            dict_counts_imrep[cdr3]=count
+            if line[3].count(";")==0 and line[5].count(";")==0: # not ambiguous
+                V=line[3].split("/")[0]
+                J=line[5]
+                vdj_imrep.add(V+"-"+J)
+                dict_counts_imrep_vdj[V+"-"+J]=0
+
+with open(args.file2) as csvFile:
+    readCSV = csv.reader(csvFile)
+    next(readCSV, None)
+    for line in readCSV:
+        if line[1] == "IGH":
+            cdr3 = line[0]
+            count = int(line[2])
+            if line[3].count(";") == 0 and line[5].count(";") == 0:  # not ambiguous
+                V = line[3].split("/")[0]
+                J = line[5]
+                dict_counts_imrep_vdj[V + "-" + J] +=count
 
 
+
+#mixcr -----------------------------------------------------------------------------
+#0       2283    0.9921773142112125      TGTCAGCAGTATGGTAACTTCCCCCTCACTTTC       JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ       IGKV3-20*00(174.9)              IGKJ4*00(97.9)  IGKC*00(98.7)   324|343|368|0|19|SG340A|81.0            21|30|58|24|33||45.0
+        #TGTCAGCAGTATGGTAACTTCCCCCTCACTTTC       41                                                               CQQYGNFPLTF             :::::::::0::-5:::::-1::33:::
 
 
 with open(args.file3) as csvFile:
@@ -136,43 +151,72 @@ with open(args.file3) as csvFile:
     next(readCSV, None)
     for line in readCSV:
         if "IGH" in line[5]:
-            clonotypes_mixcr.add(line[32])
+            cdr3=line[32]
+            count=int(line[1])
+            clonotypes_mixcr.add(cdr3)
             V=line[5].split("-")[0]
             J=line[7].split("*")[0]
             vdj_mixcr.add(V+"-"+J)
 
+            dict_counts_mixcr[cdr3]=0
+            dict_counts_mixcr_vdj[V+"-"+J]=0
 
 
-bcr_vs_imrep=compare_cdr3(clonotypes_bcr,clonotypes_imrep)
-imrep_vs_mixcr=compare_cdr3(clonotypes_imrep,clonotypes_mixcr)
-bcr_vs_mixcr=compare_cdr3(clonotypes_bcr,clonotypes_mixcr)
+with open(args.file3) as csvFile:
+    readCSV=csv.reader(csvFile,delimiter="\t")
+    next(readCSV, None)
+    for line in readCSV:
+        if "IGH" in line[5]:
+            cdr3=line[32]
+            count = int(line[1])
+            clonotypes_mixcr.add(cdr3)
+            V=line[5].split("-")[0]
+            J=line[7].split("*")[0]
+            vdj_mixcr.add(V+"-"+J)
 
-
-
-
-freq_imrep=sumFreq (bcr_vs_imrep[2],dict)
-freq_mixcr=sumFreq (bcr_vs_mixcr[2],dict)
-
-max_freq_bcrseq=max(dict_counts_bcrseq.values())
-max_freq_imrep=max(dict_counts_imrep.values())/float(sumReadsImrep)
-
-
-
-
-
-
-vdj_bcr_imrep=len(vdj_imrep.intersection(vdj_bcr))
-vdj_bcr_mixcr=len(vdj_mixcr.intersection(vdj_bcr))
-vdj_imrep_mixcr=len(vdj_imrep.intersection(vdj_bcr))
-
-sdi_bcrseq=sdi(dict_counts_bcrseq)
-sdi_imrep=sdi(dict_counts_imrep)
-
-
-print "args.file1, args.file2, args.file3,len(clonotypes_bcr), len(clonotypes_imrep),len(clonotypes_mixcr), bcr_vs_imrep[0],imrep_vs_mixcr[0],bcr_vs_mixcr[0],bcr_vs_imrep[1],imrep_vs_mixcr[1],bcr_vs_mixcr[1],len(vdj_bcr), len(vdj_imrep), len(vdj_mixcr),vdj_bcr_imrep,vdj_imrep_mixcr,vdj_bcr_mixcr, freq_imrep, freq_mixcr,sdi_bcrseq,sdi_imrep,max_freq_bcrseq,max_freq_imrep"
-
-print args.file1, args.file2, args.file3,len(clonotypes_bcr), len(clonotypes_imrep),len(clonotypes_mixcr), bcr_vs_imrep[0],imrep_vs_mixcr[0],bcr_vs_mixcr[0],bcr_vs_imrep[1],imrep_vs_mixcr[1],bcr_vs_mixcr[1],len(vdj_bcr), len(vdj_imrep), len(vdj_mixcr),vdj_bcr_imrep,vdj_imrep_mixcr,vdj_bcr_mixcr, freq_imrep, freq_mixcr,sdi_bcrseq,sdi_imrep,max_freq_bcrseq,max_freq_imrep
+            dict_counts_mixcr[cdr3]+=count
+            dict_counts_mixcr_vdj[V+"-"+J]+=count
 
 
 
 
+
+
+
+
+########################################################################################
+
+print "bcr-imrep",len(clonotypes_bcr),len(clonotypes_imrep), len(clonotypes_bcr.intersection(clonotypes_imrep))
+print "bcr-mixcr",len(clonotypes_bcr),len(clonotypes_mixcr), len(clonotypes_bcr.intersection(clonotypes_mixcr))
+print "mixcr-imrep",len(clonotypes_mixcr),len(clonotypes_imrep), len(clonotypes_mixcr.intersection(clonotypes_imrep))
+
+
+
+out_bcrseq=open("bcrseqq.cdr3","w")
+
+out_bcrseq.write("CDR3,nReads,FREQ\n")
+
+for key,value in dict_counts_bcrseq.items():
+    out_bcrseq.write(key+","+str(value))
+    out_bcrseq.write("\n")
+
+out_bcrseq.close()
+
+
+out_imrep=open("imrep.cdr3","w")
+out_imrep.write("CDR3,nReads,FREQ\n")
+
+for key,value in dict_counts_imrep.items():
+    out_imrep.write(key+","+str(value))
+    out_imrep.write("\n")
+
+out_imrep.close()
+
+out_mixcr=open("mixcr.cdr3","w")
+out_mixcr.write("CDR3,nReads,FREQ\n")
+
+for key,value in dict_counts_imrep.items():
+    out_mixcr.write(key+","+str(value))
+    out_mixcr.write("\n")
+
+out_mixcr.close()
